@@ -12,7 +12,7 @@ struct MainTabView: View {
         TabView {
             Text("Swiping View") // MARK: This is the view of the tab.
                 .tabItem {
-                    Image(systemName: "flame")
+                    Image(systemName: "suitcase.fill")
                 }
                 .tag(0)
             Text("Search View")
@@ -31,6 +31,7 @@ struct MainTabView: View {
                 }
                 .tag(3)
         }
+        .tint(.primary)
     }
 }
 
