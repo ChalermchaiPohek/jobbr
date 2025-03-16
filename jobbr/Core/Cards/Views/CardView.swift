@@ -18,24 +18,26 @@ struct CardView: View {
         "placeholder2"
     ]
     
+    let model: CardModel
+    
     var body: some View {
         ZStack (alignment: .bottom) {
             ZStack (alignment: .top) {
                 
-                Image(mockupImages[currentImageIndex])
+                Image(user.imagesURLs?[currentImageIndex] ?? "")
                     .resizable()
                     .scaledToFill()
                     .overlay {
                         ImageScrollOverlay(
-                            currentImageIndex: $currentImageIndex, imageCount: mockupImages.count
+                            currentImageIndex: $currentImageIndex, imageCount: imageCount
                         )
                     }
-                CardImageIndicatorView(currentIndex: currentImageIndex, imageCount: mockupImages.count)
+                CardImageIndicatorView(currentIndex: currentImageIndex, imageCount: imageCount)
                 SwipeActionIndicatorView(xOffset: $xOffset)
                     .frame(maxWidth: SizeConstants.cardWidth)
                     .padding(.top, 20)
             }
-            CardInfoView()
+            CardInfoView(user: user)
                 .frame(maxWidth: SizeConstants.cardWidth)
         }
         .frame(width: SizeConstants.cardWidth, height: SizeConstants.cardHeight)
@@ -51,7 +53,16 @@ struct CardView: View {
     }
 }
 
-private extension CardView {    
+private extension CardView {
+    var user: User {
+        return model.user
+    }
+    
+    var imageCount: Int {
+        guard user.imagesURLs != nil else { return 0 }
+        return user.imagesURLs!.count
+    }
+    
     func onDragChanged(_ value: DragGesture.Value) {
         xOffset = value.translation.width
         degree = Double(value.translation.width / 50)
@@ -63,10 +74,31 @@ private extension CardView {
         if abs(width) <= abs(SizeConstants.screenCutOff) {
             xOffset = 0
             degree = 0
+            return
         }
+        
+        if width >= SizeConstants.screenCutOff {
+            xOffset = 500
+            degree = 12
+        } else {
+            xOffset = -500
+            degree = -12
+        }
+    }
+    
+    func swipeRight() {
+        
+    }
+    
+    func swipeLeft() {
+        
     }
 }
 
 #Preview {
-    CardView()
+    CardView(
+        model: CardModel.init(
+            user: MockData.users[1]
+        )
+    )
 }

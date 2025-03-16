@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct CardInfoView: View {
+    let user: User
+    
     var body: some View {
         
         VStack (alignment: .leading) {
             HStack {
-                Text("Title")
+                Text("\(user.name)")
                     .font(.title)
                     .fontWeight(.heavy)
                     .lineLimit(3)
@@ -27,7 +29,7 @@ struct CardInfoView: View {
                         .tint(.primary)
                 }
             }
-            Text("Sub title")
+            Text("\(user.position)")
                 .font(.subheadline)
                 .lineLimit(2)
             
@@ -46,5 +48,5 @@ struct CardInfoView: View {
 }
 
 #Preview {
-    CardInfoView()
+    CardInfoView(user: MockData.users[1])
 }
