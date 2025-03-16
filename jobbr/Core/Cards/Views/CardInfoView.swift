@@ -12,7 +12,7 @@ struct CardInfoView: View {
         
         VStack (alignment: .leading) {
             HStack {
-                Text("[user/company] name")
+                Text("Title")
                     .font(.title)
                     .fontWeight(.heavy)
                     .lineLimit(3)
@@ -27,7 +27,7 @@ struct CardInfoView: View {
                         .tint(.primary)
                 }
             }
-            Text("Job title")
+            Text("Sub title")
                 .font(.subheadline)
                 .lineLimit(2)
             
