@@ -16,11 +16,16 @@ struct CardStackView: View {
     
     var body: some View {
         
-        ZStack {
-            ForEach(
-                viewModel.cardModels
-            ) { card in
-                CardView(viewModel: viewModel, model: card)
+        VStack (spacing: 16) {
+            ZStack {
+                ForEach(
+                    viewModel.cardModels
+                ) { card in
+                    CardView(viewModel: viewModel, model: card)
+                }
+            }
+            if !viewModel.cardModels.isEmpty {
+                SwipeActionButtonView(viewModel: viewModel)
             }
         }
     }

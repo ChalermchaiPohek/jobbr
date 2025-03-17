@@ -41,6 +41,19 @@ struct CardView: View {
             CardInfoView(user: user)
                 .frame(maxWidth: SizeConstants.cardWidth)
         }
+        .onReceive(viewModel.$buttonSwipeAction, perform: { action in
+            guard let action else { return }
+            
+            let topCard = viewModel.cardModels.last
+            if topCard == model {
+                switch action {
+                case .apply:
+                    animateRemovingCard(500, 12)
+                case .save:
+                    animateRemovingCard(-500, -12)
+                }
+            }
+        })
         .frame(width: SizeConstants.cardWidth, height: SizeConstants.cardHeight)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .offset(x: xOffset)
