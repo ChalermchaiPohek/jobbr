@@ -38,7 +38,7 @@ struct CardInfoView: View {
         .foregroundStyle(.primary)
         .background(
             LinearGradient(
-                colors: [.clear, .accentColor],
+                colors: [.clear, .blue],
                 startPoint: .top,
                 endPoint: .bottom
             )

@@ -7,11 +7,15 @@
 
 import Foundation
 
+
 class CardViewModel: ObservableObject {
     @Published var cardModels: [CardModel] = []
+    
     private let service: CardService
 
-    init(service: CardService) {
+    init(
+        service: CardService
+    ) {
         self.service = service
         Task {
             await fetchMockup()
@@ -20,9 +24,28 @@ class CardViewModel: ObservableObject {
     
     func fetchMockup() async {
         do {
-            self.cardModels = try await self.service.fetchCards()
+            self.cardModels = try await self.service
+                .fetchCards()
         } catch {
-            print(error)
+            print(
+                error
+            )
         }
+    }
+    
+    func removeCard(ById cardId: String) {
+        guard let Index = cardModels.firstIndex(where: { $0.id == cardId }) else { return }
+        cardModels.remove(at: Index)
+//        if #available(iOS 17.0, *) {
+//            guard let Index = cardModels.firstIndex(where: { $0.id == cardId }) else { return }
+//            cardModels.remove(at: Index)
+//        } else {
+//            Task {
+//                try await Task.sleep(nanoseconds: 500_000_000)
+//                guard let Index = cardModels.firstIndex(where: { $0.id == cardId }) else { return }
+//                cardModels.remove(at: Index)
+//            }
+//        }
+
     }
 }

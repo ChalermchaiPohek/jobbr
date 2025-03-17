@@ -10,7 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Text("Swiping View") // MARK: This is the view of the tab.
+            CardStackView() // MARK: This is the view of the tab.
                 .tabItem {
                     Image(systemName: "suitcase.fill")
                 }

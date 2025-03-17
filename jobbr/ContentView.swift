@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        CardView()
+//        CardView(viewModel: <#T##CardViewModel#>, model: <#T##CardModel#>)
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)

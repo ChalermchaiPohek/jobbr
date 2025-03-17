@@ -20,7 +20,7 @@ struct CardStackView: View {
             ForEach(
                 viewModel.cardModels
             ) { card in
-                CardView(model: card)
+                CardView(viewModel: viewModel, model: card)
             }
         }
     }

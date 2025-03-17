@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct CardView: View {
+    @ObservedObject var viewModel: CardViewModel
     
     @State private var  xOffset: CGFloat = 0
     @State private var degree: Double = 0
     @State private var currentImageIndex: Int = 0
     
-    @State private var mockupImages = [
-        "placeholder",
-        "placeholder2"
-    ]
+//    @State private var mockupImages = [
+//        "placeholder",
+//        "placeholder2"
+//    ]
     
     let model: CardModel
     
@@ -78,27 +79,36 @@ private extension CardView {
         }
         
         if width >= SizeConstants.screenCutOff {
-            xOffset = 500
-            degree = 12
+//            xOffset = 500
+//            degree = 12
+            animateRemovingCard(500, 12)
         } else {
-            xOffset = -500
-            degree = -12
+//            xOffset = -500
+//            degree = -12
+            animateRemovingCard(-500, -12)
         }
+        return;
     }
     
-    func swipeRight() {
-        
-    }
-    
-    func swipeLeft() {
-        
+    func animateRemovingCard(_ offset: CGFloat, _ degree: Double) {
+        withAnimation {
+            xOffset = offset
+            self.degree = degree
+        } completion: {
+            viewModel.removeCard(ById: user.id)
+        }
+
     }
 }
 
 #Preview {
     CardView(
+        viewModel: CardViewModel(
+            service: CardService()
+        ),
         model: CardModel.init(
-            user: MockData.users[1]
+            user: MockData
+                .users[1]
         )
     )
 }
