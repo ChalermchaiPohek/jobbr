@@ -13,6 +13,7 @@ struct CardView: View {
     @State private var  xOffset: CGFloat = 0
     @State private var degree: Double = 0
     @State private var currentImageIndex: Int = 0
+    @State private var isShowProfile = false
     
 //    @State private var mockupImages = [
 //        "placeholder",
@@ -38,9 +39,12 @@ struct CardView: View {
                     .frame(maxWidth: SizeConstants.cardWidth)
                     .padding(.top, 20)
             }
-            CardInfoView(user: user)
+            CardInfoView(user: user, isShowProfile: $isShowProfile)
                 .frame(maxWidth: SizeConstants.cardWidth)
         }
+        .fullScreenCover(isPresented: $isShowProfile, content: {
+            ProfileView(user: user)
+        })
         .onReceive(viewModel.$buttonSwipeAction, perform: { action in
             guard let action else { return }
             

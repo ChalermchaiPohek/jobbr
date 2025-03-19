@@ -15,17 +15,27 @@ struct CardStackView: View {
     
     
     var body: some View {
-        
-        VStack (spacing: 16) {
-            ZStack {
-                ForEach(
-                    viewModel.cardModels
-                ) { card in
-                    CardView(viewModel: viewModel, model: card)
+        NavigationStack {
+            VStack (spacing: 16) {
+                ZStack {
+                    ForEach(
+                        viewModel.cardModels
+                    ) { card in
+                        CardView(viewModel: viewModel, model: card)
+                    }
+                }
+                if !viewModel.cardModels.isEmpty {
+                    SwipeActionButtonView(viewModel: viewModel)
                 }
             }
-            if !viewModel.cardModels.isEmpty {
-                SwipeActionButtonView(viewModel: viewModel)
+            .toolbar {
+                // TODO: change to logo
+                ToolbarItem(placement: .topBarLeading) {
+                    Image(systemName: "logo.circle")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 88)
+                }
             }
         }
     }

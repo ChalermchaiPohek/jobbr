@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardInfoView: View {
     let user: User
+    @Binding var isShowProfile: Bool
     
     var body: some View {
         
@@ -21,7 +22,8 @@ struct CardInfoView: View {
                 Spacer()
                 Button {
                     // TODO: implement a logic to show detail info.
-                    print("TODO: implement a logic to show detail info.")
+//                    print("TODO: implement a logic to show detail info.")
+                    isShowProfile.toggle()
                 } label: {
                     Image(systemName: "info.circle")
                         .fontWeight(.bold)
@@ -48,5 +50,5 @@ struct CardInfoView: View {
 }
 
 #Preview {
-    CardInfoView(user: MockData.users[1])
+    CardInfoView(user: MockData.users[1], isShowProfile: .constant(false))
 }
